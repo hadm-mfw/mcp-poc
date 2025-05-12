@@ -1,0 +1,25 @@
+version: '3.8'
+
+services:
+  sse-server:
+    image: mcp-sse-server:latest
+    build:
+      context: .
+      dockerfile: ./docker/sse/Dockerfile
+    container_name: mcp-sse-server
+    ports:
+      - "8000:8000"
+    volumes:
+      - .:/app
+    environment:
+      - CLIENT_ID=${CLIENT_ID}
+      - CLIENT_SECRET=${CLIENT_SECRET}
+      - IDP_URL=${IDP_URL}
+      - REDIRECT_URL=${REDIRECT_URL}
+    networks:
+      - mcp-network
+
+networks:
+  mcp-network:
+    name: mcp-network
+    driver: bridge 
